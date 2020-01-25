@@ -90,7 +90,7 @@ public class UserController {
 	public String getMyFriendRequest(Principal p, HttpServletRequest request) {
 		String username = p.getName();
 		User user2 = ur.findByUsername(username); // trenutni ulogovani
-		List<IsFriend> friendRequests = ifr.getAllRequests(user2.getIdUser());
+		List<IsFriend> friendRequests = ifr.getAllRequests(user2.getIdUser()); // uzmi zahteve
 		request.getSession().setAttribute("friendRequests", friendRequests);
 		return "/users/addFriends";
 	}
@@ -104,6 +104,15 @@ public class UserController {
 		isfr.setStatus("accepted");
 		ifr.flush();
 		return "/users/addFriends";
+	}
+	
+	@RequestMapping(value = "getMyFriends", method = RequestMethod.GET)
+	public String getMyFriends(Principal p, HttpServletRequest request) {
+		String username = p.getName();
+		User user = ur.findByUsername(username);
+		List<User> friends = ur.getFriends(user.getIdUser());
+		request.getSession().setAttribute("myFriends", friends);
+		return "/users/usersFriends";
 	}
 	
 	@RequestMapping(value = "getMyChatUsers", method = RequestMethod.GET)
@@ -172,6 +181,8 @@ public class UserController {
 		request.getSession().setAttribute("recipeCon", recipe);
 		return "/users/recipeContent";
 	}
+	
+	
 	
 	
 }

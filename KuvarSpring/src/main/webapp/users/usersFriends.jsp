@@ -38,39 +38,19 @@
 								My recipes </a></li>
 						<li><a href="/Kuvar/controller/getFavouriteCategories" data-toggle="tab" target="_top"> My favourite
 								categories</a></li>
-						<li class="active"><a href="/Kuvar/users/usersFriends.jsp" data-toggle="tab"> My
-								friends</a></li>
+						<li class="active"><a href="/Kuvar/controller/getMyFriends" data-toggle="tab"> My friends</a></li>
 						<li><a href="/Kuvar/controller/myFriendRequest" data-toggle="tab"> <i class="fas fa-user-plus"></i> </a></li>
 					</ul>
 						<div class="tab-content">
-							<div class="tab-pane" id="tab_default_1">
 
-								<h4>RECIPES</h4>
-								<br>
-								<c:if test="${!empty usersRecipes }">
-									<c:forEach items="${usersRecipes }" var="r">
-
-										<a href="#">${r.name }</a>
-										<br>
-
-									</c:forEach>
-								</c:if>
-
-							</div>
-
-							<div class="tab-pane" id="tab_default_2">Omiljene kategorije</div>
-							<div class="tab-pane active" id="tab_default_3">Moji prijatelji</div>
-							<div class="tab-pane" id="tab_default_4">
-
-								<c:if test="${!empty friendRequests }">
-									<form action="" method="post">
-										<c:forEach items="${friendRequests }" var="fr">
-											<input type="hidden" value="${fr.user1.idUser }" name="idUser1">
-											${fr.user1.name } ${fr.user1.surname } <input type="submit" value="Accept">
+							<div class="tab-pane active" id="tab_default_3">
+								<c:if test="${!empty myFriends }">
+									<ul class="list-group list-group-flush">
+										<c:forEach items="${myFriends }" var="fr">
+												<li class="list-group-item">${fr.name } ${fr.surname }  <a href="/Kuvar/controller/getMyChatUsers"><i class="fas fa-comment"></i></a> </li>
 										</c:forEach>
-									</form>
+									</ul>
 								</c:if>
-
 							</div>
 						</div>
 					</div>

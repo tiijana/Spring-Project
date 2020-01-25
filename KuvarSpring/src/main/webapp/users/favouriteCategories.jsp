@@ -39,26 +39,11 @@
 							<li class="active"><a
 								href="/Kuvar/controller/getFavouriteCategories" data-toggle="tab"
 								target="_top"> Favourite categories</a></li>
-							<li><a href="/Kuvar/users/usersFriends.jsp"
+							<li><a href="/Kuvar/controller/getMyFriends"
 								data-toggle="tab"> My friends</a></li>
 							<li><a href="/Kuvar/controller/myFriendRequest" data-toggle="tab"> <i class="fas fa-user-plus"></i> </a></li>
 						</ul>
-						<div class="tab-content">
-							<div class="tab-pane" id="tab_default_1">
-
-								<h4>RECIPES</h4>
-								<br>
-								<c:if test="${!empty usersRecipes }">
-									<c:forEach items="${usersRecipes }" var="r">
-
-										<a href="#">${r.name }</a>
-										<br>
-
-									</c:forEach>
-								</c:if>
-
-							</div>
-							
+						<div class="tab-content">				
 
 							<div class="tab-pane active" id="tab_default_2">
 							
@@ -77,20 +62,6 @@
 								<a href="/Kuvar/users/addFavouriteCategory.jsp"><i class="fas fa-plus-circle fa-3x" style="position: absolute; bottom: 3px; right: 13px;"></i></a>
 							</div>
 							
-							
-							<div class="tab-pane" id="tab_default_3">Moji prijatelji</div>
-							<div class="tab-pane" id="tab_default_4">
-
-								<c:if test="${!empty friendRequests }">
-									<form action="" method="post">
-										<c:forEach items="${friendRequests }" var="fr">
-											<input type="hidden" value="${fr.user1.idUser }" name="idUser1">
-											${fr.user1.name } ${fr.user1.surname } <input type="submit" value="Accept">
-										</c:forEach>
-									</form>
-								</c:if>
-
-							</div>
 						</div>
 					</div>
 				</div>

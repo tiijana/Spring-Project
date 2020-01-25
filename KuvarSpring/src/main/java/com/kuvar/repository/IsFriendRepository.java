@@ -15,5 +15,6 @@ public interface IsFriendRepository extends JpaRepository<IsFriend, Integer> {
 	
 	@Query("select if from IsFriend if where if.user2.idUser = :u2 and if.user1.idUser = :u1")
 	public IsFriend getIsFriend(@Param("u2") Integer idUser2, @Param("u1") Integer idUser1);
+	
 
 }

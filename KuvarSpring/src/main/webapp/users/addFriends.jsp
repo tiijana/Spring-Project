@@ -38,27 +38,12 @@
 								My recipes </a></li>
 						<li><a href="/Kuvar/users/favouriteCategories.jsp" data-toggle="tab" target="_top"> My favourite
 								categories</a></li>
-						<li><a href="/Kuvar/users/usersFriends.jsp" data-toggle="tab"> My
+						<li><a href="/Kuvar/controller/getMyFriends" data-toggle="tab"> My
 								friends</a></li>
 						<li  class="active"><a href="Kuvar/controller/myFriendRequest" data-toggle="tab"> <i class="fas fa-user-plus"></i> </a></li>
 					</ul>
 					<div class="tab-content">
-						<div class="tab-pane" id="tab_default_1">
 
-							<h4>RECIPES</h4>
-							<br> 
-							<c:if test="${!empty usersRecipes }">
-								
-								<c:forEach items="${usersRecipes }" var="r">
-								
-									<a href="#">${r.name }</a> <br>
-									
-								</c:forEach>
-							
-							
-							</c:if>
-
-						</div>
 						<div class="tab-pane" id="tab_default_2">
 							Omiljene kategorije
 						</div>
@@ -79,6 +64,7 @@
 				</div>
 			</div>
 		</div>
+		
 		<div class="col-sm-4">
 				<div class="panel panel-default">
 					<div class="menu_title">

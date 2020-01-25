@@ -36,7 +36,7 @@
 						<ul class="nav nav-tabs ">
 							<li class="active"><a href="/Kuvar/controller/getNameOfUser" data-toggle="tab" target="_top"> My recipes </a></li>
 							<li><a href="/Kuvar/controller/getFavouriteCategories" data-toggle="tab" target="_top"> My favourite categories</a></li>
-							<li><a href="/Kuvar/users/usersFriends.jsp" data-toggle="tab"> My friends</a></li>
+							<li><a href="/Kuvar/controller/getMyFriends" data-toggle="tab"> My friends</a></li>
 							<li><a href="/Kuvar/controller/myFriendRequest" data-toggle="tab"> <i class="fas fa-user-plus"></i> </a></li>
 						</ul>
 						<div class="tab-content">
@@ -55,25 +55,11 @@
 								</c:if>
 
 							</div>
-							
-							<div class="tab-pane" id="tab_default_2">Omiljene kategorije</div>
-							<div class="tab-pane" id="tab_default_3">Moji prijatelji</div>
-							<div class="tab-pane" id="tab_default_4">
-							
-								<c:if test="${!empty friendRequests }">
-									<form action="" method="post">
-										<c:forEach items="${friendRequests }" var="fr">
-										    <input type="hidden" value="${fr.user1.idUser }" name="idUser1">
-											${fr.user1.name } ${fr.user1.surname } <input type="submit" value="Accept"> <br>
-										</c:forEach>
-									</form>
-								</c:if>
-							
-						   </div>
 						</div>
 					</div>
 				</div>
 			</div>
+			
 			<div class="col-sm-4"> 
 				<div class="panel panel-default">
 					<div class="menu_title"><p style="font-style: bold;">Find friends</p></div>
