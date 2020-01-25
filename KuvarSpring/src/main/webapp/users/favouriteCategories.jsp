@@ -68,7 +68,7 @@
 											<li class="list-group-item list-group-item-action active">${f.name }</li>
 											<c:forEach items="${f.recipes }" var="r">
 												<ul class="list-group">
-													<li><i class="fas fa-caret-right"></i>${r.name }</li>
+													<li><i class="fas fa-caret-right"></i><a href="/Kuvar/controller/getRecipeContent?idRec=${r.idRecipe }">${r.name }</a></li>
 												</ul>
 											</c:forEach>
 										</c:forEach>
