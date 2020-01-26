@@ -3,6 +3,8 @@ package com.kuvar.controller;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -11,6 +13,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.jasper.tagplugins.jstl.core.ForEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -50,24 +53,19 @@ public class CategoryController {
 		return "/admin/createCategory";
 	}
 	
-	@RequestMapping(value = "getStatistic", method = RequestMethod.GET)
-	public String getStatistic(HttpServletRequest request, Date date) {
-		List<Recipe> recipes = rr.findByDate(date);
-		int numOfRecipes = 0;
-		if (recipes != null) {
-			numOfRecipes = recipes.size();
-		}
-		String msg = "Number of recipes is: " + numOfRecipes;
-		request.getSession().setAttribute("msgNumOfRecipes", msg);
-		return "/admin/statistic";
-	}
+//	@RequestMapping(value = "getStatistic", method = RequestMethod.GET)
+//	public String getStatistic(HttpServletRequest request, Date date) {
+//		List<Recipe> recipes = rr.findByDate(date);
+//		int numOfRecipes = 0;
+//		if (recipes != null) {
+//			numOfRecipes = recipes.size();
+//		}
+//		String msg = "Number of recipes is: " + numOfRecipes;
+//		request.getSession().setAttribute("msgNumOfRecipes", msg);
+//		return "/admin/statistic";
+//	}
 	
-	@InitBinder
-	public void initBinder(WebDataBinder binder) {
-	    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-	    sdf.setLenient(true);
-	    binder.registerCustomEditor(Date.class, new CustomDateEditor(sdf, true));
-	}
+
 	
 	@RequestMapping(value = "getStatisticForCategory", method = RequestMethod.GET)
 	public String getStatisticForCategory(HttpServletRequest request) {
@@ -80,28 +78,55 @@ public class CategoryController {
 		return "/admin/statistic";
 	}
 	
-//	@RequestMapping(value="generateReport", method=RequestMethod.GET) 
-//	public void generateReport(HttpServletRequest request, HttpServletResponse response) throws Exception { 
-////		List<Predstava> predstave = (List<Predstava>)request.getSession().getAttribute("predstave");
-//	
-//		response.setContentType("text/html");
-//		JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource();
-//		InputStream inputStream = this.getClass().getResourceAsStream("/jasperreports/PredstaveRezisera.jrxml");
-//		JasperReport jasperReport = JasperCompileManager.compileReport(inputStream);
-//		Map<String, Object> params = new HashMap<String, Object>();
-////		String reziser="";
-////			reziser=predstave.get(0).getReziser().getIme()+" "+predstave.get(0).getReziser().getPrezime();
-////		if(predstave!=null && predstave.size()>0)
-////			params.put("reziser", reziser);
-//		JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, dataSource);
-//		inputStream.close();
-//		
-//		
-//		response.setContentType("application/x-download");
-//		response.addHeader("Content-disposition", "attachment; filename=PredstaveRezisera.pdf");
-//		OutputStream out = response.getOutputStream();
-//		JasperExportManager.exportReportToPdfStream(jasperPrint,out);
-//	}
+	@RequestMapping(value="generateReportCategory", method=RequestMethod.GET) 
+	public void generateReport(HttpServletRequest request, HttpServletResponse response) throws Exception { 
+		List<Recipe> recipes = rr.findAll();
+		Collections.sort(recipes, new Comparator<Recipe>() {
+			@Override
+			public int compare(Recipe r1, Recipe r2) {
+				return r1.getCategory().getName().compareToIgnoreCase(r2.getCategory().getName());
+			}
+		});
+		response.setContentType("text/html");
+		JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(recipes);
+		InputStream inputStream = this.getClass().getResourceAsStream("/jasperreports/RecipesPerCategory.jrxml");
+		JasperReport jasperReport = JasperCompileManager.compileReport(inputStream);
+		Map<String, Object> params = new HashMap<String, Object>();
+		JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, dataSource);
+		inputStream.close();
+		
+		
+		response.setContentType("application/x-download");
+		response.addHeader("Content-disposition", "attachment; filename=RecipesPerCategory.pdf");
+		OutputStream out = response.getOutputStream();
+		JasperExportManager.exportReportToPdfStream(jasperPrint,out);
+	}
+	
+	@RequestMapping(value="generateReportDate", method=RequestMethod.GET) 
+	public void generateReportDate(HttpServletRequest request, HttpServletResponse response, Date date) throws Exception { 
+		List<Recipe> recipes = rr.findByDate(date);
+		response.setContentType("text/html");
+		JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(recipes);
+		InputStream inputStream = this.getClass().getResourceAsStream("/jasperreports/DailyReport.jrxml");
+		JasperReport jasperReport = JasperCompileManager.compileReport(inputStream);
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("date", date);
+		JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, dataSource);
+		inputStream.close();
+		
+		
+		response.setContentType("application/x-download");
+		response.addHeader("Content-disposition", "attachment; filename=DailyReport.pdf");
+		OutputStream out = response.getOutputStream();
+		JasperExportManager.exportReportToPdfStream(jasperPrint,out);
+	}
+	
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+	    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	    sdf.setLenient(true);
+	    binder.registerCustomEditor(Date.class, new CustomDateEditor(sdf, true));
+	}
 
 
 
