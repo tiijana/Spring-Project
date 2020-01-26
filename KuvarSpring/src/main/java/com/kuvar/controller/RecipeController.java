@@ -126,18 +126,28 @@ public class RecipeController {
 		return "/users/addNewRecipe";
 	}
 	
-	@RequestMapping(value = "allCategories", method = RequestMethod.GET) // iskoristimo je i kod allRecipes
+	@RequestMapping(value = "allCategoriesAndIngredients", method = RequestMethod.GET) // iskoristimo je i kod allRecipes
 	public String getAllCategories(HttpServletRequest request) {
 		List<Category> categories = cr.findAll();
 		request.getSession().setAttribute("categories", categories);
+		List<Ingredient> ingredients = ir.findAll();
+		request.getSession().setAttribute("ingredients", ingredients);
 		return "/searchRecipe";
 	}
 	
-	@RequestMapping(value = "searchByIngredientAndCategory", method = RequestMethod.GET)
-	public String searchByIngredientAndCategory(HttpServletRequest request, Integer selectedCategory, String name) {
-		Ingredient ingredient = ir.findByName(name);
-		List<Recipe> recipes = rr.getRecipesByCategoryAndIngredient(ingredient.getIdIngredient(), selectedCategory);	
-		request.getSession().setAttribute("recipesByCatAndIng", recipes);
+	@RequestMapping(value = "searchByIngredient", method = RequestMethod.GET)
+	public String searchByIngredient(HttpServletRequest request, Integer selectedIngredient) {
+		List<Recipe> recipes = rr.getRecipesByIngredient(selectedIngredient);
+		request.getSession().setAttribute("recipesByIngredient", recipes);
+		System.out.println(recipes.size() + " sastojci");
+		return "/searchRecipe";
+	}
+	
+	@RequestMapping(value = "searchByCategory", method = RequestMethod.GET)
+	public String searchByCategory(HttpServletRequest request, Integer selectedCategory) {
+		List<Recipe> recipes = rr.getRecipesByCategory(selectedCategory);
+		request.getSession().setAttribute("recipesByCategory", recipes);
+		System.out.println(recipes.size() + " kategorija");
 		return "/searchRecipe";
 	}
 	

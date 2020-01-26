@@ -22,5 +22,11 @@ public interface RecipeRepository extends JpaRepository<Recipe, Integer> {
 	
 	public List<Recipe> findByCategory(Category category);
 	
+	@Query("select r from Recipe r inner join r.contains c where c.ingredient.idIngredient = :idIngr")
+	public List<Recipe> getRecipesByIngredient(@Param("idIngr") Integer idIngredient);
+	
+	@Query("select r from Recipe r where r.category.idCategory = :idCat")
+	public List<Recipe> getRecipesByCategory(@Param("idCat") Integer idCategory);
+	
 
 }
