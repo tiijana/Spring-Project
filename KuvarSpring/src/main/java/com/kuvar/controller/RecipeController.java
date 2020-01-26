@@ -94,13 +94,22 @@ public class RecipeController {
 	}
 
 	@RequestMapping(value = "addIngredients", method = RequestMethod.POST)
-	public String addIngredients(HttpServletRequest request, String name, String amount, Integer selectedIngredient) {
+	public String addIngredients(HttpServletRequest request, String name, String amount) {
+		boolean ok = false;
+		Ingredient foundedIngredient = null;
 		Recipe forRecipe = (Recipe) request.getSession().getAttribute("addedRecipe");
-		if (selectedIngredient != null) {
-			Ingredient existIng = ir.findById(selectedIngredient).get();
+		List<Ingredient> allIngredients = ir.findAll();
+		for (Ingredient ing : allIngredients) {
+			if (ing.getName().equalsIgnoreCase(name)) {
+				ok = true;
+				foundedIngredient = ing;
+				break;
+			}
+		}
+		if (ok && foundedIngredient != null) {
 			Contain contain = new Contain();
 			contain.setAmount(amount);
-			contain.setIngredient(existIng);
+			contain.setIngredient(foundedIngredient);
 			contain.setRecipe(forRecipe);
 			conr.save(contain);
 		} else {
@@ -131,16 +140,6 @@ public class RecipeController {
 		request.getSession().setAttribute("recipesByCatAndIng", recipes);
 		return "/searchRecipe";
 	}
-	
-	
-//	@RequestMapping(value = "getRecipeContent", method = RequestMethod.GET)
-//	public String getRecipeContent(HttpServletRequest request, Integer idRec) {
-//		Recipe recipe = rr.findById(idRec).get();
-//		List<Picture> pictures = recipe.getPictures();
-//		request.getSession().setAttribute("recipePictures", pictures);
-//		
-//		return "/users/recipeContent";
-//	}
 	
 	@RequestMapping(value = "getAllRecipesCategories", method = RequestMethod.GET)
 	public String getAllRecipes(HttpServletRequest request) {
@@ -173,9 +172,7 @@ public class RecipeController {
 		Recipe recipe = (Recipe) request.getSession().getAttribute("recipeForFavs");
 		Favourite_category favC = fcr.findById(selectedFavCategory).get();
 		favC.getRecipes().add(recipe);
-		System.out.println(favC.getRecipes().size());
 		recipe.getFavouriteCategories().add(favC);
-		System.out.println(recipe.getFavouriteCategories().size());
 		fcr.saveAndFlush(favC);
 		rr.saveAndFlush(recipe);
 		return "/users/allRecipes";

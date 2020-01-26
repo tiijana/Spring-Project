@@ -6,9 +6,18 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<style type="text/css">
+body {
+	background-image: url('/Kuvar/img/flowers.jpg'); 
+	background-repeat: repeat-x;
+	background-size: contain; 
+	background-position: center;
+	width: 100%;
+}
+</style>
 <title>Coolinarika - ADD RECIPE</title>
 </head>
-<body id="backgroundImage">
+<body >
 
 	<form class="border border-light p-5" id="addRecipe" action="/Kuvar/recipeController/saveNewRecipe" method="post">
 
@@ -36,19 +45,8 @@
 
 	<form class="border border-light p-5" id="addRecipe" action="/Kuvar/recipeController/addIngredients" method="post">
 	
-			<p class="h4 mb-4 text-center">Add ingredients<p>
+		<p class="h4 mb-4 text-center">Add ingredients<p>
 			
-		<c:if test="${!empty allIngredients }">
-			<select class="browser-default custom-select mb-4" id="select"
-				name="selectedIngredient">
-				<option value="" disabled selected>Choose ingredient</option>
-				<c:forEach items="${allIngredients }" var="i">
-					<option value="${i.idIngredient }">${i.name }</option>
-				</c:forEach>
-			</select>
-		</c:if>
-		<br>
-		<p>or insert ingredient if it isn't listed above</p>
 		<br>
 		<label for="textInput">Ingredient</label> <input type="text"
 			id="textInput" class="form-control mb-4" placeholder="Text input" name="name">

@@ -32,9 +32,16 @@
 	
 	<h3 class="text-center"><strong>${recipeCon.name }</strong></h3>
 	<p class="text-center">
+		Posted by: ${userInfo.name } ${userInfo.surname }
 		Post date: ${recipeCon.date } <br>
 		Belongs to the category: ${recipeCon.category.name } <br>
-		Description: ${recipeCon.description }
+		Description: ${recipeCon.description } <br>
+		Ingredients:
+		<c:if test="${!empty recipeIngredients }">
+			<c:forEach items="${recipeIngredients }" var="i">
+				${i.name } <br>
+			</c:forEach>
+		</c:if>
 
 	</p>
 	

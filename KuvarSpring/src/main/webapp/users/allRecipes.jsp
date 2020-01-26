@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <style type="text/css">
 #form{
-	margin-top: 5px;
+	margin-top: 10%;
 	width: 40%;
  	margin-left: 20px;
  	margin-right: auto; 
@@ -17,14 +17,23 @@
 }
 
 #form2 {
+	margin-top: 10%;
 	margin-left:auto;
 	margin-right: 20px;
 	float: right;
 	vertical-align: middle;
 	background: linear-gradient(to top, #ffffcc 0%, #ccffcc 99%);
 	height: 500px;
-	width: 500px;
+	width: 40%;
 	
+}
+
+body {
+	background-image: url('/Kuvar/img/flowers.jpg'); 
+	background-repeat: repeat-x;
+	background-size: contain; 
+	background-position: center;
+	width: 100%;
 }
 
 </style>
@@ -32,7 +41,6 @@
 </head>
 <body>
 
-	
 
 <div class="border border-light p-5" id="form">
 	<c:if test="${!empty allCategories }">
@@ -52,7 +60,7 @@
 			    <th>Name</th>
 			    <th>Posted by</th>
 			    <th>Show details</th>
-<!-- 			    <th>Add to favourites</th> -->
+			    <th>Add to favourites</th>
 			  </tr>
 			</thead>
 		<c:forEach items="${recipesForCategory }" var="r">
@@ -64,11 +72,12 @@
 			    <td>
 			    	${r.user.name } ${r.user.surname }
 			    </td>
-			    <td><a href="/Kuvar/">Show</a></td>
+			    <td><a class="btn btn-teal btn-rounded btn-sm m-0" href="/Kuvar/controller/getRecipeContent?idRec=${r.idRecipe }" >Show</a></td>
 			    <td><a href="/Kuvar/recipeController/showUsersFavouriteCategories?recipeID=${r.idRecipe }"><i class="fas fa-heart"></i></a></td>
 			  </tr>
 			</tbody>
 		</c:forEach>
+		<c:remove var="recipesForCategory"/>
 	</table>
   </c:if>	
 </div>

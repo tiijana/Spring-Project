@@ -12,7 +12,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.kuvar.repository.ContainRepository;
 import com.kuvar.repository.FavouriteCategoryRepository;
+import com.kuvar.repository.IngredientRepository;
 import com.kuvar.repository.IsFriendRepository;
 import com.kuvar.repository.MessageRepository;
 import com.kuvar.repository.RecipeRepository;
@@ -20,6 +22,7 @@ import com.kuvar.repository.RoleRepository;
 import com.kuvar.repository.UserRepository;
 
 import model.Favourite_category;
+import model.Ingredient;
 import model.IsFriend;
 import model.Message;
 import model.Picture;
@@ -41,6 +44,8 @@ public class UserController {
 	MessageRepository mr;
 	@Autowired
 	FavouriteCategoryRepository fcr;
+	@Autowired
+	ContainRepository cr;
 
 	@RequestMapping(value = "addNewUser", method = RequestMethod.POST)
 	public String newUser(HttpServletRequest request, User user) {
@@ -51,7 +56,7 @@ public class UserController {
 		request.getSession().setAttribute("addedUser", user);
 		return "index";
 	}
-
+	
 	@RequestMapping(value = "getNameOfUser", method = RequestMethod.GET)
 	public String getNameOfUser(Principal p, HttpServletRequest request) {
 		String username = p.getName();
@@ -176,9 +181,13 @@ public class UserController {
 	@RequestMapping(value = "getRecipeContent", method = RequestMethod.GET)
 	public String getRecipeContent(HttpServletRequest request, Integer idRec) {
 		Recipe recipe = recr.findById(idRec).get();
+		List<Ingredient> ingredients = cr.getIngredientsForRecipe(recipe.getIdRecipe());
 		List<Picture> pictures = recipe.getPictures();
+		User user = recipe.getUser();
+		request.getSession().setAttribute("recipeIngredients", ingredients);;
 		request.getSession().setAttribute("recipePictures", pictures);
 		request.getSession().setAttribute("recipeCon", recipe);
+		request.getSession().setAttribute("userInfo", user);
 		return "/users/recipeContent";
 	}
 	

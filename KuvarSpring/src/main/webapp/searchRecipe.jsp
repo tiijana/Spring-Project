@@ -72,14 +72,16 @@ th {
 		      	<td scope="row"><strong>${r.name }</strong></td>
 		      	<td>${r.user.name } ${r.user.surname }</td>
 		      	<td>${r.date }</td>
-		      	<td><a href="/Kuvar/controller/getRecipeContent?idRec=${r.idRecipe }" class="btn btn-teal btn-rounded btn-sm m-0">Prikazi</a></td>
+		      	<td><a href="/Kuvar/controller/getRecipeContent?idRec=${r.idRecipe }" class="btn btn-teal btn-rounded btn-sm m-0">Show</a></td>
 		    </tr>
 		  	</c:forEach>
 		  </tbody>
-
+<%-- 		  <c:remove var="recipesByCatAndIng"> --%>
+<%--   		</c:remove> --%>
 	</table>
 	
   </c:if> 
+
   		
 </body>
 </html>

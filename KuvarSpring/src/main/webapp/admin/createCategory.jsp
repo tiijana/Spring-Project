@@ -15,10 +15,18 @@
 	background: linear-gradient(to top, #ffffcc 0%, #ccffcc 99%);
 }
 
+body {
+	background-image: url('/Kuvar/img/flowers.jpg'); 
+	background-repeat: repeat-x;
+	background-size: contain; 
+	background-position: center;
+	width: 100%;
+}
+
 </style>
 <title>Coolinarika - CREATE CATEGORY</title>
 </head>
-<body id="backgroundImage">
+<body>
 
 <div class="enterCategory">
 	<form class="border border-light p-5" action="${pageContext.request.contextPath}/categoryController/addNewCategory" method="post" id="addCatg">
