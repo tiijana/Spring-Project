@@ -77,9 +77,9 @@ public class UserController {
 		User userWhoAdd = ur.findByUsername(username); // onaj koji dodaje
 		User addedUser = ur.findById(idUser2).get(); 
 		addFriendFunc(userWhoAdd, addedUser);
-//		
-//		List<User> notFriends = ur.getAllNotFriends(userWhoAdd.getIdUser());
-//		request.getSession().setAttribute("notFriends", notFriends);
+		
+		List<User> notFriends = ur.getAllNotFriends(userWhoAdd.getIdUser());
+		request.getSession().setAttribute("notFriends", notFriends);
 		return "/users/profil";
 	}
 	
@@ -124,8 +124,10 @@ public class UserController {
 	public String getMyChatUsers(Principal p, HttpServletRequest request) {
 		String username = p.getName();
 		User user = ur.findByUsername(username);
-		List<User> chatUsers = mr.getChatUsers(user.getIdUser());
-		request.getSession().setAttribute("chatUsers", chatUsers);
+//		List<User> chatUsers = mr.getChatUsers(user.getIdUser());
+//		System.out.println(chatUsers.size());
+		List<User> friends = ur.getFriends(user.getIdUser());
+		request.getSession().setAttribute("chatUsers", friends);
 		return "/chat";
 	}
 	

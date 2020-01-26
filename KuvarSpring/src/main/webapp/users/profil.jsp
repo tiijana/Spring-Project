@@ -15,7 +15,9 @@
 <title>Coolinarika - MY PROFILE</title>
 </head>
 <body id="backgroundImage">
-
+<!-- 	<div> -->
+<%-- 		<img alt="" src="${user.picture }" class="avatar rounded-circle d-flex align-self-center mr-2 z-depth-1" style="width:120px; height: 150px;"> --%>
+<!-- 	</div> -->
 	<div class="container-fluid">
 		<div class="row">
 			<div class="fb-profile">

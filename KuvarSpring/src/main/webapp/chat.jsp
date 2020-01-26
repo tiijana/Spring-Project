@@ -49,7 +49,7 @@
                 </div>
               </a>
             </li>
-          	
+          	<hr>
           	</c:forEach>
     
           </c:if>

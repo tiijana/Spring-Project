@@ -36,11 +36,15 @@
 	</div>
 	
 	<div class="boxNumOfRecipes">
-		<c:if test="${!empty informations }">
-			<c:forEach items="${informations }" var="i">
-				Number of recipes for category ${i.key } is: ${i.value } <br>
-			</c:forEach>
-		</c:if>		
+		<form action="" method="get">
+			<c:if test="${!empty informations }">
+				<c:forEach items="${informations }" var="i">
+					Number of recipes for category ${i.key } is: ${i.value } <br>
+				</c:forEach>
+			</c:if>
+			<br>
+			<button class="btn blue-gradient btn-rounded btn-sm my-0" type="submit">Get report</button>
+		</form>		
 	</div>
 	
 	
