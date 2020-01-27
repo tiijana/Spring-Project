@@ -12,10 +12,17 @@
 <script
 	src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-<title>Coolinarika - MY PROFILE</title>
+<style type="text/css">
+	body {
+		background: linear-gradient(to top, #ffffcc 0%, #ccffcc 99%);
+	}
+</style>
+<title>Coolinarika - ADD FRIENDS</title>
 </head>
-<body id="backgroundImage">
-
+<body>
+	<div>
+		<img alt="" src="${user.picture }" class="avatar rounded-circle d-flex align-self-center mr-2 z-depth-1" style="width:90px; height: 110px;">
+	</div>
 	<div class="container-fluid">
 		<div class="row">
 			<div class="fb-profile">
@@ -34,12 +41,9 @@
 			<div data-spy="scroll" class="tabbable-panel">
 				<div class="tabbable-line">
 					<ul class="nav nav-tabs ">
-						<li><a href="/Kuvar/controller/getNameOfUser" data-toggle="tab" target="_top">
-								My recipes </a></li>
-						<li><a href="/Kuvar/users/favouriteCategories.jsp" data-toggle="tab" target="_top"> My favourite
-								categories</a></li>
-						<li><a href="/Kuvar/controller/getMyFriends" data-toggle="tab"> My
-								friends</a></li>
+						<li><a href="/Kuvar/controller/getNameOfUser" data-toggle="tab" target="_top"> <strong> My recipes</strong> </a></li>
+						<li><a href="/Kuvar/users/favouriteCategories.jsp" data-toggle="tab" target="_top"> <strong> My favourite categories </strong></a></li>
+						<li><a href="/Kuvar/controller/getMyFriends" data-toggle="tab"><strong> My friends </strong></a></li>
 						<li  class="active"><a href="Kuvar/controller/myFriendRequest" data-toggle="tab"> <i class="fas fa-user-plus"></i> </a></li>
 					</ul>
 					<div class="tab-content">
@@ -68,7 +72,7 @@
 		<div class="col-sm-4">
 				<div class="panel panel-default">
 					<div class="menu_title">
-						<p style="font-style: bold;">Find friends</p>
+						<p style="font-style: bold;"><strong>Find friends</strong></p>
 					</div>
 					<div class="panel-body">
 						<div class="row">

@@ -12,7 +12,7 @@
  	margin-top: 5%; 
 	width: 30%;
  	margin-left: 12%; 
- 	margin-right: 2%; 
+ 	margin-right: 5px; 
 	background: linear-gradient(to top, #ffffcc 0%, #ccffcc 99%);
 	float: left;
 }
@@ -23,17 +23,24 @@
 	margin-left: -150px;
 /* 	margin-right: auto; */
 	background: linear-gradient(to top, #ffffcc 0%, #ccffcc 99%);
-	bottom: 80px;
+	bottom: 80px; 
 	right:25%;
-    left:50%;
+    left:45%;
 	
 }
 th {
 	background-color: #ccffcc;
 }
+body {
+	background-image: url('/Kuvar/img/flowers.jpg'); 
+	background-repeat: repeat-x;
+	background-size: contain; 
+	background-position: center;
+	width: 100%;
+}
 </style>
 </head>
-<body id="backgroundImage">
+<body>
 	<form class="border border-light p-5" action="/Kuvar/recipeController/searchByCategory" method="get" id="catIngForm">
 
 	    <p class="h4 mb-4 text-center">Search by category</p>

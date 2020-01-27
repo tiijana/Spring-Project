@@ -12,15 +12,22 @@
 <script
 	src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<style type="text/css">
+	body {
+		background: linear-gradient(to top, #ffffcc 0%, #ccffcc 99%);
+	}
+</style>
 <title>Insert title here</title>
 </head>
-<body id="backgroundImage">
-
+<body>
+	<div>
+		<img alt="" src="${user.picture }" class="avatar rounded-circle d-flex align-self-center mr-2 z-depth-1" style="width:90px; height: 110px;">
+	</div>
 	<div class="container-fluid">
 		<div class="row">
 			<div class="fb-profile">
 				<div class="fb-profile-text">
-					<h1>${user.name }${user.surname }</h1>
+					<h1>${user.name } ${user.surname }</h1>
 
 				</div>
 			</div>
@@ -33,14 +40,10 @@
 
 				<div data-spy="scroll" class="tabbable-panel">
 					<div class="tabbable-line">
-						<ul class="nav nav-tabs ">
-							<li><a href="/Kuvar/controller/getNameOfUser"
-								data-toggle="tab"> My recipes </a></li>
-							<li class="active"><a
-								href="/Kuvar/controller/getFavouriteCategories" data-toggle="tab"
-								target="_top"> Favourite categories</a></li>
-							<li><a href="/Kuvar/controller/getMyFriends"
-								data-toggle="tab"> My friends</a></li>
+						<ul class="nav nav-tabs">
+							<li><a href="/Kuvar/controller/getNameOfUser" data-toggle="tab"><strong> My recipes </strong> </a></li>
+							<li class="active"><a href="/Kuvar/controller/getFavouriteCategories" data-toggle="tab" target="_top"> <strong> Favourite categories </strong></a></li>
+							<li><a href="/Kuvar/controller/getMyFriends" data-toggle="tab"><strong>My friends </strong> </a></li>
 							<li><a href="/Kuvar/controller/myFriendRequest" data-toggle="tab"> <i class="fas fa-user-plus"></i> </a></li>
 						</ul>
 						<div class="tab-content">				
@@ -50,10 +53,10 @@
 								<c:if test="${!empty favourites }">
 									<ul class="list-group">
 										<c:forEach items="${favourites }" var="f">
-											<li class="list-group-item list-group-item-action active">${f.name }</li>
+											<li class="list-group-item list-group-item-action active" style="background-color: #99ffbb; font-size: 17px; font-style: bold; color: black;">${f.name }</li>
 											<c:forEach items="${f.recipes }" var="r">
 												<ul class="list-group">
-													<li><i class="fas fa-caret-right"></i><a href="/Kuvar/controller/getRecipeContent?idRec=${r.idRecipe }">${r.name }</a></li>
+													<li><i class="fas fa-caret-right"></i><a style="background-color:#ebebe0; font-size: 14px;  color: black;" href="/Kuvar/controller/getRecipeContent?idRec=${r.idRecipe }">${r.name }</a></li>
 												</ul>
 											</c:forEach>
 										</c:forEach>
@@ -70,7 +73,7 @@
 			<div class="col-sm-4">
 				<div class="panel panel-default">
 					<div class="menu_title">
-						<p style="font-style: bold;">Find friends</p>
+						<p style="font-style: bold;"><strong>Find friends</strong> </p>
 					</div>
 					<div class="panel-body">
 						<div class="row">

@@ -64,7 +64,10 @@
 						class="form-text text-muted mb-4"> At least 8 characters
 						and 1 digit </small>
 				</div>
-
+				
+				<div class="md-form">
+					<input type="text" name="picture"><label class="form-text text-muted mb-4">Insert picture</label>
+				</div>
 
 				<!-- Sign up button -->
 				<button

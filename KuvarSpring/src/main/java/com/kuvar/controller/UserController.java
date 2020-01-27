@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.kuvar.repository.ContainRepository;
 import com.kuvar.repository.FavouriteCategoryRepository;
-import com.kuvar.repository.IngredientRepository;
 import com.kuvar.repository.IsFriendRepository;
 import com.kuvar.repository.MessageRepository;
 import com.kuvar.repository.RecipeRepository;
@@ -53,8 +52,9 @@ public class UserController {
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		user.setRole(rr.findById(2).orElse(null));
 		ur.save(user);
+//		System.out.println(u.getName() + " " + u.getSurname());
 		request.getSession().setAttribute("addedUser", user);
-		return "index";
+		return "/index";
 	}
 	
 	@RequestMapping(value = "getNameOfUser", method = RequestMethod.GET)

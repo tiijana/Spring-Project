@@ -12,11 +12,11 @@
 		display:none;
 	}
 	body {
-		background: linear-gradient(to bottom left, #66ffcc 0%, #ff99ff 99%);
+		background: linear-gradient(to bottom, #66ffcc 0%, #ff99ff 99%);
 	}
 </style>
 
-<title>Insert title here</title>
+<title>RECIPE</title>
 </head>
 <body>
 	

@@ -17,10 +17,18 @@
 	background: linear-gradient(to top, #ffffcc 0%, #ccffcc 99%);
 }
 
+body {
+	background-image: url('/Kuvar/img/flowers.jpg'); 
+	background-repeat: repeat-x;
+	background-size: contain; 
+	background-position: center;
+	width: 100%;
+}
+
 </style>
 <title>Coolinarika - STATISTIC</title>
 </head>
-<body id="backgroundImage">
+<body>
 
 	<div class="boxNumOfRecipes">
 		<p class="h4 mb-4 text-center">Number of recipes for day</p>
