@@ -88,6 +88,10 @@ public class UserController {
 		isFriend.setUser1(userWhoAdd);
 		isFriend.setUser2(addedUser);
 		isFriend.setStatus("pending"); // ceka se prihvatanje
+		userWhoAdd.getIsFriends1().add(isFriend);
+		addedUser.getIsFriends2().add(isFriend);
+		ur.saveAndFlush(userWhoAdd);
+		ur.saveAndFlush(addedUser);
 		ifr.save(isFriend);
 	}
 	
@@ -108,6 +112,8 @@ public class UserController {
 		IsFriend isfr = ifr.getIsFriend(user2.getIdUser(), user1.getIdUser());
 		isfr.setStatus("accepted");
 		ifr.flush();
+		List<User> notFriends = ur.getAllNotFriends(user1.getIdUser());
+		request.getSession().setAttribute("notFriends", notFriends);
 		return "/users/addFriends";
 	}
 	
