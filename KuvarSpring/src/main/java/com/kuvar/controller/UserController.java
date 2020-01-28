@@ -21,10 +21,8 @@ import com.kuvar.repository.RoleRepository;
 import com.kuvar.repository.UserRepository;
 
 import model.Favourite_category;
-import model.Ingredient;
 import model.IsFriend;
 import model.Message;
-import model.Picture;
 import model.Recipe;
 import model.User;
 
@@ -47,18 +45,17 @@ public class UserController {
 	ContainRepository cr;
 
 	@RequestMapping(value = "addNewUser", method = RequestMethod.POST)
-	public String newUser(HttpServletRequest request, User user) {
+	public String newUser(HttpServletRequest request, User user) { // dodavanje korisnika
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		user.setRole(rr.findById(2).orElse(null));
 		ur.save(user);
-//		System.out.println(u.getName() + " " + u.getSurname());
 		request.getSession().setAttribute("addedUser", user);
 		return "/index";
 	}
 	
 	@RequestMapping(value = "getNameOfUser", method = RequestMethod.GET)
-	public String getNameOfUser(Principal p, HttpServletRequest request) {
+	public String getNameOfUser(Principal p, HttpServletRequest request) { // dobavi recepte ulogovanog korisnika za profil
 		String username = p.getName();
 		User user = ur.findByUsername(username);
 		List<Recipe> recipes = recr.findByUser(user);
@@ -74,11 +71,11 @@ public class UserController {
 	@RequestMapping(value = "addFriend", method = RequestMethod.GET)
 	public String addFriend(Principal p, HttpServletRequest request, Integer idUser2) {
 		String username = p.getName();
-		User userWhoAdd = ur.findByUsername(username); // onaj koji dodaje
-		User addedUser = ur.findById(idUser2).get(); 
-		addFriendFunc(userWhoAdd, addedUser);
+		User userWhoAdd = ur.findByUsername(username); // onaj koji salje zahtev za prijateljstvo
+		User addedUser = ur.findById(idUser2).get();  // onaj kome se salje zahtev
+		addFriendFunc(userWhoAdd, addedUser); // setovanje statusa na pending dok se ne prihvati zahtev
 		
-		List<User> notFriends = ur.getAllNotFriends(userWhoAdd.getIdUser());
+		List<User> notFriends = ur.getAllNotFriends(userWhoAdd.getIdUser()); // kad posalje zahtev azuriramo listu onih koji mu nisu prijatelji
 		request.getSession().setAttribute("notFriends", notFriends);
 		return "/users/profil";
 	}
@@ -96,7 +93,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "myFriendRequest", method = RequestMethod.GET)
-	public String getMyFriendRequest(Principal p, HttpServletRequest request) {
+	public String getMyFriendRequest(Principal p, HttpServletRequest request) { // metod koji vraca zahteve za prijateljstvo ulogovanom korisniku
 		String username = p.getName();
 		User user2 = ur.findByUsername(username); // trenutni ulogovani
 		List<IsFriend> friendRequests = ifr.getAllRequests(user2.getIdUser()); // uzmi zahteve
@@ -107,18 +104,18 @@ public class UserController {
 	@RequestMapping(value = "acceptRequest", method = RequestMethod.POST)
 	public String acceptRequest(Principal p, HttpServletRequest request, Integer idUser1) {
 		String username = p.getName(); 
-		User user2 = ur.findByUsername(username); // ovo sam ja
-		User user1 = ur.findById(idUser1).get(); // ovo je onaj koji mi je poslao zahtev
-		IsFriend isfr = ifr.getIsFriend(user2.getIdUser(), user1.getIdUser());
-		isfr.setStatus("accepted");
+		User user2 = ur.findByUsername(username); // korisnik koji prihvata zahtev
+		User user1 = ur.findById(idUser1).get(); // korisnik koji mi je poslao zahtev
+		IsFriend isfr = ifr.getIsFriend(user2.getIdUser(), user1.getIdUser()); // nabavimo odgovarajuci isFriend objekat za ova dva user-a
+		isfr.setStatus("accepted"); 
 		ifr.flush();
-		List<User> notFriends = ur.getAllNotFriends(user1.getIdUser());
+		List<User> notFriends = ur.getAllNotFriends(user1.getIdUser()); // azuriranje liste onih koji sada ulogovanom korisniku nisu prijatelji
 		request.getSession().setAttribute("notFriends", notFriends);
 		return "/users/addFriends";
 	}
 	
 	@RequestMapping(value = "getMyFriends", method = RequestMethod.GET)
-	public String getMyFriends(Principal p, HttpServletRequest request) {
+	public String getMyFriends(Principal p, HttpServletRequest request) { // lista prijatelja korisnika
 		String username = p.getName();
 		User user = ur.findByUsername(username);
 		List<User> friends = ur.getFriends(user.getIdUser());
@@ -127,7 +124,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "getMyChatUsers", method = RequestMethod.GET)
-	public String getMyChatUsers(Principal p, HttpServletRequest request) {
+	public String getMyChatUsers(Principal p, HttpServletRequest request) { // lista prijatelja za chat
 		String username = p.getName();
 		User user = ur.findByUsername(username);
 //		List<User> chatUsers = mr.getChatUsers(user.getIdUser());
@@ -138,7 +135,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "showMessages", method = RequestMethod.GET)
-	public String showMessages(Principal p, HttpServletRequest request, Integer idUser2) {
+	public String showMessages(Principal p, HttpServletRequest request, Integer idUser2) { // dobavi poruke izmedju dva korisnika 
 		String username = p.getName();
 		User user1 = ur.findByUsername(username);
 		User user2 = ur.findById(idUser2).get();
@@ -165,7 +162,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "getFavouriteCategories", method = RequestMethod.GET)
-	public String getFavouriteCategories(Principal p, HttpServletRequest request) {
+	public String getFavouriteCategories(Principal p, HttpServletRequest request) { // omiljene kategorije korisnika
 		String username = p.getName();
 		User user = ur.findByUsername(username);
 		List<Favourite_category> favCategories = fcr.findByUser(user);
@@ -174,7 +171,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "addFavouriteCategory", method = RequestMethod.POST)
-	public String addFavouriteCategory(Principal p, HttpServletRequest request, String name) {
+	public String addFavouriteCategory(Principal p, HttpServletRequest request, String name) { // dodavanje omiljene kategorije
 		String username = p.getName();
 		User user = ur.findByUsername(username);
 		Favourite_category fc = new Favourite_category();
@@ -185,21 +182,5 @@ public class UserController {
 		request.getSession().setAttribute("favourites", favCategories);
 		return "/users/favouriteCategories";
 	}
-	
-	@RequestMapping(value = "getRecipeContent", method = RequestMethod.GET)
-	public String getRecipeContent(HttpServletRequest request, Integer idRec) {
-		Recipe recipe = recr.findById(idRec).get();
-		List<Ingredient> ingredients = cr.getIngredientsForRecipe(recipe.getIdRecipe());
-		List<Picture> pictures = recipe.getPictures();
-		User user = recipe.getUser();
-		request.getSession().setAttribute("recipeIngredients", ingredients);;
-		request.getSession().setAttribute("recipePictures", pictures);
-		request.getSession().setAttribute("recipeCon", recipe);
-		request.getSession().setAttribute("userInfo", user);
-		return "/users/recipeContent";
-	}
-	
-	
-	
 	
 }

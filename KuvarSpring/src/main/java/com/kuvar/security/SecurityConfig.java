@@ -29,9 +29,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 	   http.authorizeRequests().
-	   antMatchers("/","/login","/signup").permitAll(). //za / i login svima daje pristup
-	   antMatchers("/admin/**", "/categoryController/**").hasRole("ADMIN").//samo admin moze da pristupi, ostale odbija
-	   antMatchers("/users/**", "/controller/**", "/recipeController/**").hasAnyRole("ADMIN","USER"). // i admin i user mogu da pristupe
+	   antMatchers("/","/login","/signup", "/searchController/**").permitAll(). // svima daje pristupa
+	   antMatchers("/admin/**", "/categoryController/**").hasRole("ADMIN"). // samo admin moze da pristupi, ostale odbija
+	   antMatchers("/users/**", "/controller/**", "/recipeController/**").hasAnyRole("ADMIN","USER"). // samo autentifikovani korisnici mogu da pristupe (admin i user)
 	   and().formLogin().
 	   loginPage("/login.jsp").
 	   loginProcessingUrl("/login").

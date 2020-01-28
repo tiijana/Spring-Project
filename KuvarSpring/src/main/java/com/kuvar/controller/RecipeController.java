@@ -58,7 +58,6 @@ public class RecipeController {
 		List<Ingredient> ingredients = ir.findAll();
 		request.getSession().setAttribute("allCategories", categories);
 		request.getSession().setAttribute("allIngredients", ingredients);
-
 		return "/users/addNewRecipe";
 	}
 
@@ -79,7 +78,7 @@ public class RecipeController {
 			rr.save(recipe);
 		}
 
-		request.getSession().setAttribute("addedRecipe", recipe);
+		request.getSession().setAttribute("addedRecipe", recipe); 
 		return "/users/addNewRecipe";
 	}
 	
@@ -126,39 +125,16 @@ public class RecipeController {
 		return "/users/addNewRecipe";
 	}
 	
-	@RequestMapping(value = "allCategoriesAndIngredients", method = RequestMethod.GET) // iskoristimo je i kod allRecipes
-	public String getAllCategories(HttpServletRequest request) {
-		List<Category> categories = cr.findAll();
-		request.getSession().setAttribute("categories", categories);
-		List<Ingredient> ingredients = ir.findAll();
-		request.getSession().setAttribute("ingredients", ingredients);
-		return "/searchRecipe";
-	}
+
 	
-	@RequestMapping(value = "searchByIngredient", method = RequestMethod.GET)
-	public String searchByIngredient(HttpServletRequest request, Integer selectedIngredient) {
-		List<Recipe> recipes = rr.getRecipesByIngredient(selectedIngredient);
-		request.getSession().setAttribute("recipesByIngredient", recipes);
-		System.out.println(recipes.size() + " sastojci");
-		return "/searchRecipe";
-	}
-	
-	@RequestMapping(value = "searchByCategory", method = RequestMethod.GET)
-	public String searchByCategory(HttpServletRequest request, Integer selectedCategory) {
-		List<Recipe> recipes = rr.getRecipesByCategory(selectedCategory);
-		request.getSession().setAttribute("recipesByCategory", recipes);
-		System.out.println(recipes.size() + " kategorija");
-		return "/searchRecipe";
-	}
-	
-	@RequestMapping(value = "getAllRecipesCategories", method = RequestMethod.GET)
+	@RequestMapping(value = "getAllRecipesCategories", method = RequestMethod.GET) // dobavi sve kategorije
 	public String getAllRecipes(HttpServletRequest request) {
 		List<Category> catgs = cr.findAll();
 		request.getSession().setAttribute("allCategories", catgs);
 		return "/users/allRecipes";
 	}
 	
-	@RequestMapping(value = "showRecipesForCategory", method = RequestMethod.GET)
+	@RequestMapping(value = "showRecipesForCategory", method = RequestMethod.GET) // prikaze recepte za izabranu kategoriju
 	public String showRecipesForCategory(HttpServletRequest request, Integer categoryId) {
 		Category category = cr.findById(categoryId).get();
 		List<Recipe> recipes = rr.findByCategory(category);
@@ -167,7 +143,7 @@ public class RecipeController {
 	}
 	
 	@RequestMapping(value = "showUsersFavouriteCategories", method = RequestMethod.GET)
-	public String showUsersFavouriteCategories(Principal p, HttpServletRequest request, Integer recipeID) {
+	public String showUsersFavouriteCategories(Principal p, HttpServletRequest request, Integer recipeID) { // prikazi omiljene kategorije korisnika
 		String username = p.getName();
 		User user = ur.findByUsername(username);
 		List<Favourite_category> favs = fcr.findByUser(user);
@@ -178,7 +154,7 @@ public class RecipeController {
 	}
 	
 	@RequestMapping(value = "addToFavouriteCategory", method = RequestMethod.POST)
-	public String addToFavouriteCategory(HttpServletRequest request, Integer selectedFavCategory) {
+	public String addToFavouriteCategory(HttpServletRequest request, Integer selectedFavCategory) { // dodaj u omiljenu kategoriju
 		Recipe recipe = (Recipe) request.getSession().getAttribute("recipeForFavs");
 		Favourite_category favC = fcr.findById(selectedFavCategory).get();
 		favC.getRecipes().add(recipe);

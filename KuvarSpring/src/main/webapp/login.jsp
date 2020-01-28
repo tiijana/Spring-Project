@@ -35,18 +35,6 @@
 						for="materialLoginFormPassword">Password</label>
 				</div>
 
-				<div class="d-flex justify-content-around">
-					<div>
-						<!-- Remember me -->
-						<div class="form-check">
-							<input type="checkbox" class="form-check-input"
-								id="materialLoginFormRemember"> <label
-								class="form-check-label" for="materialLoginFormRemember">Remember
-								me</label>
-						</div>
-					</div>
-				</div>
-
 				<!-- Sign in button -->
 				<button
 					class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0"

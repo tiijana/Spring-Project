@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-DENIED
+<h1> ACCESS DENIED </h1>
 </body>
 </html>

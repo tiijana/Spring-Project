@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	ERROR
+	<h1>ERROR</h1>
 
 </body>
 </html>

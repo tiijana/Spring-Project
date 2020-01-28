@@ -44,7 +44,7 @@
 				</s:authorize>
 				</s:authorize>
 				
-				    <li class="nav-item active"><a class="nav-link" href="/Kuvar/recipeController/allCategoriesAndIngredients"><i class="fas fa-search"></i></a></li>
+				    <li class="nav-item active"><a class="nav-link" href="/Kuvar/searchController/allCategoriesAndIngredients"><i class="fas fa-search"></i></a></li>
 
 				
 			</ul>

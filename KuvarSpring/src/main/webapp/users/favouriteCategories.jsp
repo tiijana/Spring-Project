@@ -56,7 +56,7 @@
 											<li class="list-group-item list-group-item-action active" style="background-color: #99ffbb; font-size: 17px; font-style: bold; color: black;">${f.name }</li>
 											<c:forEach items="${f.recipes }" var="r">
 												<ul class="list-group">
-													<li><i class="fas fa-caret-right"></i><a style="background-color:#ebebe0; font-size: 14px;  color: black;" href="/Kuvar/controller/getRecipeContent?idRec=${r.idRecipe }">${r.name }</a></li>
+													<li><i class="fas fa-caret-right"></i><a style="background-color:#ebebe0; font-size: 14px;  color: black;" href="/Kuvar/searchController/getRecipeContent?idRec=${r.idRecipe }">${r.name }</a></li>
 												</ul>
 											</c:forEach>
 										</c:forEach>

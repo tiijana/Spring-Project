@@ -41,7 +41,7 @@ body {
 </style>
 </head>
 <body>
-	<form class="border border-light p-5" action="/Kuvar/recipeController/searchByCategory" method="get" id="catIngForm">
+	<form class="border border-light p-5" action="/Kuvar/searchController/searchByCategory" method="get" id="catIngForm">
 
 	    <p class="h4 mb-4 text-center">Search by category</p>
 	
@@ -62,7 +62,7 @@ body {
 	
   </form>
     
-  	<form class="border border-light p-5" action="/Kuvar/recipeController/searchByIngredient" method="get" id="catIngForm">
+  	<form class="border border-light p-5" action="/Kuvar/searchController/searchByIngredient" method="get" id="catIngForm">
 
 	    <p class="h4 mb-4 text-center">Search by ingredient</p>
 	
@@ -102,7 +102,7 @@ body {
 		      	<td scope="row"><strong>${r.name }</strong></td>
 		      	<td>${r.user.name } ${r.user.surname }</td>
 		      	<td>${r.date }</td>
-		      	<td><a href="/Kuvar/controller/getRecipeContent?idRec=${r.idRecipe }" class="btn btn-teal btn-rounded btn-sm m-0">Show</a></td>
+		      	<td><a href="/Kuvar/searchController/getRecipeContent?idRec=${r.idRecipe }" class="btn btn-teal btn-rounded btn-sm m-0">Show</a></td>
 		    </tr>
 		  	</c:forEach>
 		  </tbody>
@@ -131,7 +131,7 @@ body {
 		      	<td scope="row"><strong>${r.name }</strong></td>
 		      	<td>${r.user.name } ${r.user.surname }</td>
 		      	<td>${r.date }</td>
-		      	<td><a href="/Kuvar/controller/getRecipeContent?idRec=${r.idRecipe }" class="btn btn-teal btn-rounded btn-sm m-0">Show</a></td>
+		      	<td><a href="/Kuvar/searchController/getRecipeContent?idRec=${r.idRecipe }" class="btn btn-teal btn-rounded btn-sm m-0">Show</a></td>
 		    </tr>
 		  	</c:forEach>
 		  </tbody>

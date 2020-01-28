@@ -45,7 +45,7 @@ public class CategoryController {
 	RecipeRepository rr;
 	
 	@RequestMapping(value = "addNewCategory", method = RequestMethod.POST)
-	public String addNewCategory(HttpServletRequest request, String name) {
+	public String addNewCategory(HttpServletRequest request, String name) { // dodavanje nove kategorije
 		Category category = new Category();
 		category.setName(name);
 		cr.save(category);
@@ -53,22 +53,9 @@ public class CategoryController {
 		return "/admin/createCategory";
 	}
 	
-//	@RequestMapping(value = "getStatistic", method = RequestMethod.GET)
-//	public String getStatistic(HttpServletRequest request, Date date) {
-//		List<Recipe> recipes = rr.findByDate(date);
-//		int numOfRecipes = 0;
-//		if (recipes != null) {
-//			numOfRecipes = recipes.size();
-//		}
-//		String msg = "Number of recipes is: " + numOfRecipes;
-//		request.getSession().setAttribute("msgNumOfRecipes", msg);
-//		return "/admin/statistic";
-//	}
-	
-
 	
 	@RequestMapping(value = "getStatisticForCategory", method = RequestMethod.GET)
-	public String getStatisticForCategory(HttpServletRequest request) {
+	public String getStatisticForCategory(HttpServletRequest request) { // Ispisivanje statistike za kategorije
 		List<Category> allCategories = cr.findAll();
 		Map<String, Integer> info = new HashMap<String, Integer>();
 		for(Category c : allCategories) {
@@ -79,7 +66,7 @@ public class CategoryController {
 	}
 	
 	@RequestMapping(value="generateReportCategory", method=RequestMethod.GET) 
-	public void generateReport(HttpServletRequest request, HttpServletResponse response) throws Exception { 
+	public void generateReport(HttpServletRequest request, HttpServletResponse response) throws Exception {  // izvestaj po kategorijama
 		List<Recipe> recipes = rr.findAll();
 		Collections.sort(recipes, new Comparator<Recipe>() {
 			@Override
@@ -103,7 +90,7 @@ public class CategoryController {
 	}
 	
 	@RequestMapping(value="generateReportDate", method=RequestMethod.GET) 
-	public void generateReportDate(HttpServletRequest request, HttpServletResponse response, Date date) throws Exception { 
+	public void generateReportDate(HttpServletRequest request, HttpServletResponse response, Date date) throws Exception { // izvestaj po datumu
 		List<Recipe> recipes = rr.findByDate(date);
 		response.setContentType("text/html");
 		JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(recipes);

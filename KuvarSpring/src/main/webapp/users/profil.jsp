@@ -55,7 +55,7 @@
 									<c:forEach items="${usersRecipes }" var="r">
 
 										<div class="list-group">
-											  <a href="/Kuvar/controller/getRecipeContent?idRec=${r.idRecipe }" class="list-group-item list-group-item-action">${r.name }</a>
+											  <a href="/Kuvar/searchController/getRecipeContent?idRec=${r.idRecipe }" class="list-group-item list-group-item-action">${r.name }</a>
 									    </div>
 
 									</c:forEach>

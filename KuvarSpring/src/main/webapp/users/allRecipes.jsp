@@ -72,7 +72,7 @@ body {
 			    <td>
 			    	${r.user.name } ${r.user.surname }
 			    </td>
-			    <td><a class="btn btn-teal btn-rounded btn-sm m-0" href="/Kuvar/controller/getRecipeContent?idRec=${r.idRecipe }" >Show</a></td>
+			    <td><a class="btn btn-teal btn-rounded btn-sm m-0" href="/Kuvar/searchController/getRecipeContent?idRec=${r.idRecipe }" >Show</a></td>
 			    <td><a href="/Kuvar/recipeController/showUsersFavouriteCategories?recipeID=${r.idRecipe }"><i class="fas fa-heart"></i></a></td>
 			  </tr>
 			</tbody>
